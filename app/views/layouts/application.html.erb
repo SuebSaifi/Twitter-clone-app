@@ -10,10 +10,6 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/b492b7fc6e.js" crossorigin="anonymous"></script>
     <%=stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"%>
-￼
-￼
-￼
-
   </head>
 
   <body>
@@ -41,9 +37,24 @@
     <div class="navbar-end">
     <div class="field is-grouped">
     <p class="control">
-    <%= link_to "New Tweeet",new_tweeet_path, class: "button is-info is-inverted"%>
+    <%= link_to "New Tweeet",root_path, class: "button is-info is-inverted"%>
     </p>
-    <p class="control">singup</a>
+    <%if user_signed_in?%>
+    <p class="control">
+    <%= link_to current_user.name,edit_user_registration_path,class:"button is-info"%>
+    </p>
+    <p>
+    <%= link_to "Logout",destroy_user_session_path,method: :delete,class:"button is-info"%>
+    </p>
+    <%else%>
+    <p>
+    <%=link_to "Sign In",new_user_session_path,class:"button is-info"%>
+    </p>
+    <p>
+    <%= link_to "Sing Up",new_user_registration_path,class:"button is-info"%>
+    </p>
+    <%end%>
+
     </div>
     </div>
     </div>

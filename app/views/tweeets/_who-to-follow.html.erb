@@ -1,67 +1,28 @@
-
 <div class="column">
     <nav class="panel">
         <p class="panel-heading">Who To Follow</p>
     </nav>
-    <%@tweeets.each do |tweeet|%>
+    <%User.all.each do |user|%>
     <div class="panel-block">
         <article class="media">
             <div class="media-left">
                 <figure class="image is-32x32">
-                     <%=gravatar_image_tag(tweeet.user.email,size:32,alt:tweeet.user.name)%>
+                     <%=gravatar_image_tag(user.email,size:32,alt:user.name)%>
                 </figure>
             </div>
+              <%if user_signed_in? %> 
             <div class="media-content">
-                <p>
-                    <strong>Jhon smth</strong>
-                    <small>@jhonsmith</small>
-                </p>
+            <%if user == current_user%>
+               <%=user.name%><br/>
+               <p><b>Username: </b><%= user.username%>
+               <%else%>
+                <%=user.name%><br/>
+               <p><b>Username: </b><%= user.username%>
+               <p>Add friend</p>
+               <%end%>
             </div>
+            <%end%>
         </article>
-    </div>
-    <div class="panel-block">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-32x32">
-                     <%=gravatar_image_tag(tweeet.user.email,size:32,alt:tweeet.user.name)%>
-                </figure>
-            </div>
-            <div class="media-content">
-                <p>
-                    <strong>Jhon smth</strong>
-                    <small>@jhonsmith</small>
-                </p>
-            </div>
-        </article>
-    </div>
-    <div class="panel-block">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-32x32">
-                   <%=gravatar_image_tag(tweeet.user.email,size:32,alt:tweeet.user.name)%>
-                </figure>
-            </div>
-            <div class="media-content">
-                <p>
-                    <strong>Jhon smth</strong>
-                    <small>@jhonsmith</small>
-                </p>
-            </div>
-        </article>
-    </div><div class="panel-block">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-32x32">
-                   <%=gravatar_image_tag(tweeet.user.email,size:32,alt:tweeet.user.name)%>
-                </figure>
-            </div>
-            <div class="media-content">
-                <p>
-                    <strong>Jhon smth</strong>
-                    <small>@jhonsmith</small>
-                </p>
-            </div>
-        </article>
-    </div>
+    </div>   
 <%end%>
 </div>

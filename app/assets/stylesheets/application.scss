@@ -29,3 +29,12 @@
 .notification:not(:last-child) {
     margin-bottom: 0;
 }
+
+.button {
+    align-items: center;
+    justify-content: center;
+}
+
+.is-grouped {
+    align-items: center;
+}

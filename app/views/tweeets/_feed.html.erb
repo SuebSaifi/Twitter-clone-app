@@ -12,7 +12,6 @@
     </article>
 <% end %>
 <% @tweeets.each do |tweeet| %>
-
     <div class="box">
         <article class="media">
             <div class="media-left">
@@ -27,29 +26,50 @@
                     <p><%= tweeet.tweeet%></p><br/>
                 </div>
                 <%if user_signed_in? %>
-                <div class="level">
-                    <div class="level-left is-mobile">
-                        <%= link_to tweeet, class: "level-item" do %>
-                        
-                             <span class="icon">
-                                <i class="fa fa-link"aria-hidden="true"></i></span>
-                                <%end%>                     
-                           
-                                
-                                <% if tweeet.user.id==current_user.id%>
+                    <div class="level">
+                        <div class="level-left is-mobile">
+                        <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id} %>
+                        <%if pre_like%>
+                            <%=link_to tweeet_like_path(tweeet,pre_like),method: :delete,remote: true  do%>
+                            <i class="fa-solid fa-heart" style="color:rgb(249, 24, 128);"></i>
+                            <%end%>
+                        <%else%>
+                        <%=link_to tweeet_likes_path(tweeet) ,method: :post,remote: true do %>
+                                    <span class="icon"><i class="fa-regular fa-heart"style="color:gray;"></i></span>
+                            <%end%>
+                        <%end%>
+                        <%=tweeet.likes.count%>
+                            <%= link_to tweeet, class: "level-item" do %>
+                                <span class="icon"><i class="fa fa-link"aria-hidden="true"></i></span>
+                            <%end%>                                                
+                            <% if tweeet.user.id==current_user.id%>
                                 <%= link_to edit_tweeet_path(tweeet), class: "level-item" do %>
-                                <span class="icon"><i class="fa fa-pencil"aria-hidden="true"></i></span>
+                                    <span class="icon"><i class="fa fa-pencil"aria-hidden="true"></i></span>
                                 <% end %>
-                                <%= link_to tweeet,method: :delete,data: {confirm:"Are you sure you want to delete this tweet?"} do %>
-                                <span class="icon"><i class="fa fa-trash-o"aria-hidden="true"></i></span>
+                                <%= link_to tweeet,method: :delete,remote: true,class:"delete",data: {confirm:"Are you sure you want to delete this tweet?"} do %>
+                                    <span class="icon"><i class="fa fa-trash"aria-hidden="true"></i></span>
                                 <% end %>
-                                <% end %>
-                                </div>
-                </div>          
-                                <%end%>         
+                            <% end %>
+                        </div>
+                    </div>          
+                    <%Comment.all.each do |coment|%>
+                        <%if tweeet.id==coment.tweeet_id%>
+                            <%=coment.comment%>
+                        <%end%>
+                    <%end%>
+                    
+                <%end%>         
             </div>
         </article>
-    </div>
+        <%= link_to 'new comment' , new_tweeet_comment_path(tweeet), remote: true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#CommentModal', class: 'btn btn-primary'%>
+        
+        
+        
 
-    <%end%>
     </div>
+   
+    <%end%>
+    
+
+
+</div>

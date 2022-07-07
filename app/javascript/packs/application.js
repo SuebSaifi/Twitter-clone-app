@@ -8,7 +8,19 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
     //= require jquery
+
+//= require popper
+
+//= require turbolinks
+
+//= require bootstrap
+
+//= require_tree

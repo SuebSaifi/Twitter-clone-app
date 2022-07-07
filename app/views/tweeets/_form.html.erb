@@ -1,8 +1,8 @@
-<%= simple_form_for(@tweeet) do |f| %>
+<%= simple_form_for(@tweeet,remote: true) do |f| %>
 <%=f.error_notification%>
 <div class="field">
 <div class="control">
-<%= f.input :tweeet,label:"Tweet about it", input_html:{class:"textarea"},wrapper: false,lable_html:{class:"label"},placeholder:"Compose a new Tweet...",autofocus:true%>
+<%= f.input :tweeet,label:"Tweet about it",required: true, local: false ,input_html:{class:"textarea"},wrapper: false,lable_html:{class:"label"},placeholder:"Compose a new Tweet...",autofocus:true%>
 </div>
 </div>
 <%= f.button :submit , class:"button is-info"%>

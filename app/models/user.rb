@@ -6,4 +6,7 @@ class User < ApplicationRecord
   has_many :tweeets
   has_many :likes,through: :tweeets, dependent: :destroy
   has_many :comments 
+  has_many :friendships 
+  has_many :friends, :through => :friendships
 end
+  

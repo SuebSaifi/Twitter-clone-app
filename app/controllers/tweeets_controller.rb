@@ -5,9 +5,11 @@ class TweeetsController < ApplicationController
   def index
     @tweeets = Tweeet.all.order("created_at DESC")
     @tweeet = Tweeet.new
-    
+    @friendships = User.all
   end
-
+ def all_tweeet
+  @tweeets = Tweeet.all.order("created_at DESC")
+ end
   # GET /tweeets/1 or /tweeets/1.json
   def show
   end

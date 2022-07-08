@@ -28,30 +28,66 @@
                 <%if user_signed_in? %>
                     <div class="level">
                         <div class="level-left is-mobile">
+                        
+                        
+                        <%#Like Tweeet%>
+                        
                         <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id} %>
                         <%if pre_like%>
+                        <div id = "dislike<%= tweeet.likes%>">
                             <%=link_to tweeet_like_path(tweeet,pre_like),method: :delete,remote: true  do%>
                             <i class="fa-solid fa-heart" style="color:rgb(249, 24, 128);"></i>
                             <%end%>
-                        <%else%>
+                        </div>
+                        <%else%>     
+                        <div id = "like">
                         <%=link_to tweeet_likes_path(tweeet) ,method: :post,remote: true do %>
                                     <span class="icon"><i class="fa-regular fa-heart"style="color:gray;"></i></span>
                             <%end%>
+                            <script>
+                            var = tweeet
+                            $("#like").click(function(){
+                                debugger
+                                $.ajax({
+                                    type: "POST",
+                                    url: `/tweeets/+${{tweeet_id: var}}+/likes`,
+                                    data:"",
+                                    dataType: 'script',
+                                    success: function (result) {
+                                        console.log("Ajax callback function");
+                                    }
+                                });
+                            });
+                            </script>
+                        </div>
                         <%end%>
                         <%=tweeet.likes.count%>
                             <%= link_to tweeet, class: "level-item" do %>
                                 <span class="icon"><i class="fa fa-link"aria-hidden="true"></i></span>
-                            <%end%>                                                
+                            <%end%>        
+                            <%# Edit the tweeet  %>
+                            
                             <% if tweeet.user.id==current_user.id%>
-                                <%= link_to edit_tweeet_path(tweeet), class: "level-item" do %>
+                                <%= link_to edit_tweeet_path(tweeet),class: "level-item",:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#Edit-window', class: 'btn btn-primary btn-lg' do %>
                                     <span class="icon"><i class="fa fa-pencil"aria-hidden="true"></i></span>
                                 <% end %>
+                                <div id="Edit-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="Edit-content"></div>
+                              </div>
+                            </div>
+                            
+                            
+                            <%#Delete the tweeet %>
                                 <%= link_to tweeet,method: :delete,remote: true,class:"delete",data: {confirm:"Are you sure you want to delete this tweet?"} do %>
                                     <span class="icon"><i class="fa fa-trash"aria-hidden="true"></i></span>
                                 <% end %>
                             <% end %>
                         </div>
                     </div>          
+                    
+                    
+                    
                     <%Comment.all.each do |coment|%>
                         <%if tweeet.id==coment.tweeet_id%>
                             <%=coment.comment%>
@@ -61,7 +97,7 @@
                 <%end%>         
             </div>
         </article>
-        <%= link_to 'new comment' , new_tweeet_comment_path(tweeet), remote: true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#CommentModal', class: 'btn btn-primary'%>
+        <%= link_to 'new comment' , new_tweeet_comment_path(tweeet), remote: true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#CommentModal'%>
         
         
         

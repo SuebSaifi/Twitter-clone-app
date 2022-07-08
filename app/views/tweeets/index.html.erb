@@ -4,10 +4,12 @@
 <%if user_signed_in?%>
 <%= render "profile"%>
 <%else%>
-<%= render "trends"%>
+<%# <%= render "trends"%>
 <%end%>
 <%= render 'feed'%>
+<%if user_signed_in?%>
 <%= render 'who-to-follow'%>
+<%end%>
 </div>
 </div>
 </section>

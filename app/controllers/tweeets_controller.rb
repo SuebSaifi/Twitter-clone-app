@@ -6,12 +6,17 @@ class TweeetsController < ApplicationController
     @tweeets = Tweeet.all.order("created_at DESC")
     @tweeet = Tweeet.new
     @friendships = User.all
+    respond_to do |format|
+      format.js {render layout: false}
+      format.html { render 'index'} # I had to tell rails to use the index by default if it's a html request. 
+    end
   end
  def all_tweeet
   @tweeets = Tweeet.all.order("created_at DESC")
  end
   # GET /tweeets/1 or /tweeets/1.json
   def show
+  @tweeets=Tweeet.all
   end
 
   # GET /tweeets/new
@@ -31,7 +36,7 @@ class TweeetsController < ApplicationController
       if @tweeet.save
         format.html { redirect_to root_path, notice: "Tweeet was successfully created." }
         format.json { render :show, status: :created, location: @tweeet }
-        format.js
+        # format.js {render layout: true}
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tweeet.errors, status: :unprocessable_entity }
@@ -43,23 +48,24 @@ class TweeetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweeet.update(tweeet_params)
-        format.html { redirect_to tweeet_url(@tweeet), notice: "Tweeet was successfully updated." }
+        format.html { redirect_to root_path, notice: "Tweeet was successfully updated." }
         format.json { render :show, status: :ok, location: @tweeet }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tweeet.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end 
 
   # DELETE /tweeets/1 or /tweeets/1.json
   def destroy
     @tweeet.destroy
 
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: "Tweeet was successfully destroyed." }
+   respond_to do |format|
+      format.html { redirect_to tweeet_url }
       format.json { head :no_content }
-    end
+      format.js   { render :layout => false }
+   end
   end
 
   private

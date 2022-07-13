@@ -1,26 +1,9 @@
- 
-<div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%=form_for(@comment, url: tweeet_comments_path,remote: true) do |form|%>
-            <p> 
-            <%=form.hidden_field :user_id ,value: current_user.id%>
-            <%=form.label :comment%><br>
-            <%= form.text_field :comment,class:"textarea form-control"%>
-            <%=form.submit :comment, class:"btn btn-info my-3"%>    
-            </p>
-        <%end%> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<%=form_for(@comment, url: tweeet_comments_path,remote: true) do |form|%> 
+    <p >
+        <%=form.hidden_field :user_id ,value: current_user.id%>
+        <%=form.label :comment%> 
+        <%= form.text_area :comment,class:"textarea form-control"%>
+        <%=form.submit :comment, class:"btn btn-info my-3"%> 
+    </p>
+<%end%>
+    

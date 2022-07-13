@@ -1,1 +1,2 @@
-$("#CommentModal").replace("<%= j render(partial: 'form') %>");
+$("#CommentModal").html("<%= j (render 'new') %>");
+$("#CommentModal").modal();

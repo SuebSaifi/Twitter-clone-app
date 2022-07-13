@@ -1,9 +1,71 @@
+
+  <div class="card mx-auto my-3" style="width: 40rem;">
 <p id="notice"><%= notice %></p>
+<%= link_to tweeets_path,class:"icon mx-2 my-3 fs-3" do%>
+<span><i class="bi bi-arrow-left"></i></span>
+<%end%>
+  <h5 class="card-header"><%= @tweeet.tweeet %></h5> 
+  <div class="d-flex justify-content-evenly flex-row my-2 ">
+  <div>
+  <%= link_to  new_tweeet_comment_path(@tweeet),remote: true,'data-bs-toggle' =>  "modal", 'data-bs-target' => '#CommentModal',class:"icon"  do %>
+    <span>
+       <i class="bi bi-chat" style="width:10px; color:black;"></i>
+    </span>
 
-<p>
-  <strong>Tweeet:</strong>
-  <%= @tweeet.tweeet %>
-</p>
-
-<%= link_to 'Edit', edit_tweeet_path(@tweeet) %> |
-<%= link_to 'Back', tweeets_path %>
+   <%end%>
+        <span>
+            <%=@tweeet.comments.count%>  
+       </span>
+   </div>
+   <div class="d-flex ">
+        <% pre_like = @tweeet.likes.find { |like| like.user_id == current_user.id} %>
+              <%if pre_like%>
+                  <div class="like" id = "dislike<%= @tweeet.likes%>">
+                      <%=link_to tweeet_like_path(@tweeet,pre_like),method: :delete,class:"destroy_like icon",remote: true  do%>
+                          <i class="fa-solid fa-heart" style="color:rgb(249, 24, 128);"></i>
+                      <%end%>
+                  </div>
+              <%else%>     
+                <div id = "like">
+                  <%=link_to tweeet_likes_path(@tweeet) ,method: :post,remote: true,class:"icon" do %>
+                    <span class="icon"><i class="fa-regular fa-heart"style="color:gray;"></i></span>
+                  <%end%>
+                </div>
+              <%end%>
+         <%=@tweeet.likes.count%>
+    </div>
+   </div>
+  <hr>
+ 
+<div class="card-body">
+    <h5 class="card-title">Comment</h5>
+<div class="card-text">
+  
+<%# <%= link_to 'Edit', edit_tweeet_path(@tweeet) ,class:"icon"%> 
+   <div id="CommentModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+           <div class="Comment-content"></div>
+        </div>
+     </div>
+    <%Comment.all.each do |comment|%>
+            <%if comment.tweeet_id==@tweeet.id%>
+           <hr>
+            <div class="comment d-flex justify-content-between ">        
+             <div >
+                <%if @tweeet.id==comment.tweeet_id%>
+                    <%=comment.comment%>
+                <%end%>            
+            </div>
+               <%if comment.user.id==current_user.id%>
+            <div >
+              <%=link_to tweeet_comment_path(@tweeet,comment),remote: true , method: :delete,class:"delete_comment",data: {confirm:"Are you sure you want to delete this Comment?"} do %>
+              <span class="icon"><i class="bi bi-trash"aria-hidden="true"></i></span> 
+              <%end%>
+           </div>    
+            <%end%>           
+          <%end%>   
+       </div>
+   <%end%>
+ </div>
+  </div>
+</div>

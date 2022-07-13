@@ -10,7 +10,7 @@
   <div class="user">
     <p>
       <strong><%=user.username %></strong>
-      <%= link_to "Add Friend", friendships_path(friend_id: user), :method => :post %>     
+      <%= link_to "Add Friend", friendships_path(friend_id: user), :method => :post ,class:"icon"%>     
       </p>
   </div>
   <%end%>

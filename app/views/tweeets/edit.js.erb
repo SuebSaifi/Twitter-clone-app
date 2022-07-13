@@ -1,2 +1,6 @@
 $("#Edit-window").html("<%= j (render partial: 'edit') %>");
 $("#Edit-window").modal();
+
+$(".box").bind('ajax:success', function() {
+   $(this).closest('.box')
+});

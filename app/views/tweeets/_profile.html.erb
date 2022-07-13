@@ -24,25 +24,25 @@
                     <div>
                         <p class="heading">Tweets</p>
                         <p class="title is-6">
-                         <%=link_to tweeets_path do %>
-                            <%=current_user.tweeets.count%>
+                         <%=link_to tweeets_path ,remote: true ,class:"icon" do %>
+                            <%=current_user.tweeets.count %>
                             <%end%>
-                        </p>
+                        </p>    
                     </div>
                 </div>
                 <div class="level-item has-centered-text">
                     <div>
-                    <%=link_to friendships_path do %>
+                    <%=link_to friendships_path ,class:"icon" do %>
                         <p class="heading">Follower</p>
                         <p class="title is-6"><%=current_user.friendships.count%></p>
                         <%end%>
                     </div>
                     
                     <div class="level-item has-centered-text">
+                        </div>
                         <div>
                             <p class="heading">Following</p>
                             <p class="title is-6">456k</p>
-                        </div>
                     </div>
                 </div>
             </div>

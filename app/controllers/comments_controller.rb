@@ -7,6 +7,10 @@ class CommentsController < ApplicationController
     
     def new
         @comment=current_user.comments.build
+        respond_to do |format|
+                format.html
+                format.js
+              end
     end
     
     def show
@@ -19,15 +23,26 @@ class CommentsController < ApplicationController
         respond_to do |format|
         if @comment.save
             flash[:success] = "comment successfully created"
+            format.html
             format.js
-            redirect_to root_path
+            redirect_to @tweeet
           else
             flash[:error] = "Something went wrong"
             render 'new'
           end
+        end 
         end
-        end
-
+     
+    def destroy
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+        respond_to do |format|
+            format.html { redirect_to comment_url }
+            format.json { head :no_content }
+            format.js   { render :layout => false }
+         end
+    end
+    
     
     
     private

@@ -1,0 +1,20 @@
+<div class="likes">
+<% pre_like = current_user.likes.where(tweeet_id: tweeet_id).exists?%>
+       <%if pre_like%>
+       <div class="dislike">
+            <%like_id=current_user.likes.find_by(tweeet_id: tweeet_id).id%>
+            <div id = "dislike<%= @tweeet.likes%>">
+                <%=link_to "/tweeets/#{tweeet_id}/like/#{like_id}",method: :delete,class:"destroy_like", id:"icon",remote: true  do%>
+                   <i class="fa-solid fa-heart" style="color:rgb(249, 24, 128);"></i>
+                <%end%>
+           </div>
+        </div>
+        <%else%>     
+       
+        <div id = "like">
+            <%=link_to tweeet_likes_toggle_path(tweeet_id) ,method: :post,remote: true,id:"icon" do %>
+              <span class="icon"><i class="fa-regular fa-heart" style="color:gray;"></i></span>
+            <%end%>
+        </div>
+    <%end%>
+</div>

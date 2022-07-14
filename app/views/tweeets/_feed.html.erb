@@ -51,25 +51,10 @@
                                  <%end%>
                                  
                             </div>
-                                 
                         <%#Like Tweeet%>
-                        
                             <div class="d-flex ">
-                                <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id} %>
-                                <%if pre_like%>
-                                    <div class="like" id = "dislike<%= tweeet.likes%>">
-                                        <%=link_to tweeet_like_path(tweeet,pre_like),method: :delete,class:"destroy_like icon",remote: true  do%>
-                                        <i class="fa-solid fa-heart" style="color:rgb(249, 24, 128);"></i>
-                                        <%end%>
-                                    </div>
-                                <%else%>     
-                                    <div id = "like">
-                                    <%=link_to tweeet_likes_path(tweeet) ,method: :post,remote: true,class:"icon" do %>
-                                                <span class="icon"><i class="fa-regular fa-heart"style="color:gray;"></i></span>
-                                        <%end%>
-                                    </div>
-                                <%end%>
-                                <%=tweeet.likes.count%>
+                        <%=render "likes/toggle",tweeet_id: tweeet.id%>
+                               <%=tweeet.likes.count%>
                         </div>
                         
                         <div>

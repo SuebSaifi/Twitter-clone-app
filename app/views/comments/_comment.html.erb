@@ -1,7 +1,21 @@
-<%@comments.each do |comment|%>
-    <div>
-        <span>
-            <p>Comment <%=coment.comment%> </p>
-        </span>
-    </div>
-<%end%>
+ <div class="card-text">
+<%Comment.all.each do |comment|%>
+            <%if comment.tweeet_id==@tweeet.id%>
+           <hr>
+            <div class="comment d-flex justify-content-between" id='<%comment.id%>'>        
+             <div >
+                <%if @tweeet.id==comment.tweeet_id%>
+                    <%=comment.comment%>
+                <%end%>            
+            </div>
+               <%if comment.user.id==current_user.id%>
+            <div >
+              <%=link_to tweeet_comment_path(@tweeet,comment),remote: true , method: :delete,class:"delete_comment",data: {confirm:"Are you sure you want to delete this Comment?"} do %>
+              <span class="icon"><i class="bi bi-trash"aria-hidden="true"></i></span> 
+              <%end%>
+           </div>    
+            <%end%>           
+          <%end%>   
+       </div>
+   <%end%>
+   </div>

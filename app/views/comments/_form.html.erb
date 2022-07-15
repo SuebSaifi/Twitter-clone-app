@@ -1,9 +1,12 @@
+
 <%=form_for(@comment, url: tweeet_comments_path,remote: true) do |form|%> 
-    <p >
+    <div >
         <%=form.hidden_field :user_id ,value: current_user.id%>
         <%=form.label :comment%> 
         <%= form.text_area :comment,class:"textarea form-control"%>
-        <%=form.submit :comment, class:"btn btn-info my-3"%> 
-    </p>
+         <div class="modal-footer">
+        <%=form.submit :comment, class:"btn btn-primary my-3"%> 
+        <div>
+    </div>
 <%end%>
     

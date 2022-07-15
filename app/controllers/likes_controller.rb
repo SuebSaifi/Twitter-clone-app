@@ -12,35 +12,19 @@ class LikesController < ApplicationController
             @like=@tweeet.likes.find(params[:id])
             @like.destroy
             respond_to do |format| 
-            
-            format.html{redirect_to root_path}
-            format.js
-
+                format.html
+                format.js
             end
         else
             @like = Like.create(tweeet_id: params[:tweeet_id] ,user_id: current_user.id)
             if @like.save
                 respond_to do |format| 
-                format.html {redirect_to root_path}
-                format.js  
+                    format.html 
+                    format.js  
                 end
             end
         end
-    end
-    # def destroy 
-    #     # @like=@tweeet.likes.find(params[:id])
-    #     # if !(already_liked?)
-    #     #   flash[:notice] = "Cannot unlike"
-    #     # else
-    #       @like.destroy
-    #       respond_to do |format|
-    #         format.html { redirect_to root_path }
-    #         format.json { head :no_content }
-    #         format.js   
-    #      end
-    #     # end
-    #   end
-      
+    end      
     private
     
     def set_tweeet

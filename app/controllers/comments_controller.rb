@@ -22,10 +22,9 @@ class CommentsController < ApplicationController
         @comment = @tweeet.comments.build(comment_params)
         respond_to do |format|
         if @comment.save
-            flash[:success] = "comment successfully created"
-            format.html
-            format.js
-            redirect_to @tweeet
+            format.html{ redirect_to @tweeet}
+            # format.js
+            
           else
             flash[:error] = "Something went wrong"
             render 'new'
@@ -37,7 +36,7 @@ class CommentsController < ApplicationController
         @comment = Comment.find(params[:id])
         @comment.destroy
         respond_to do |format|
-            format.html { redirect_to comment_url }
+            format.html { redirect_to @tweeet    }
             format.json { head :no_content }
             format.js   { render :layout => false }
          end

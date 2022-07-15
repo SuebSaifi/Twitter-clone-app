@@ -6,7 +6,7 @@
 <%else%>
 <%# <%= render "trends"%>
 <%end%>
-<%= render 'feed'%>
+<%= render 'feed',tweeet_id: @tweeet.id%>
 <%if user_signed_in?%>
 <%= render 'who-to-follow'%>
 <%end%>

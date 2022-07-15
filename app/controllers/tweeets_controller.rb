@@ -26,6 +26,11 @@ class TweeetsController < ApplicationController
 
   # GET /tweeets/1/edit
   def edit
+        respond_to do |format|
+        
+            format.html
+            format.js
+        end
   end
 
   # POST /tweeets or /tweeets.json
@@ -50,6 +55,7 @@ class TweeetsController < ApplicationController
       if @tweeet.update(tweeet_params)
         format.html { redirect_to root_path, notice: "Tweeet was successfully updated." }
         format.json { render :show, status: :ok, location: @tweeet }
+        
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tweeet.errors, status: :unprocessable_entity }
@@ -60,7 +66,6 @@ class TweeetsController < ApplicationController
   # DELETE /tweeets/1 or /tweeets/1.json
   def destroy
     @tweeet.destroy
-
    respond_to do |format|
       format.html { redirect_to tweeet_url }
       format.json { head :no_content }
@@ -71,7 +76,7 @@ class TweeetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweeet
-      @tweeet = Tweeet.find(params[:id])
+      @tweeet = Tweeet.find(params[:id])      
     end
 
     # Only allow a list of trusted parameters through.

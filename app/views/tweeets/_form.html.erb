@@ -1,9 +1,15 @@
-<%= simple_form_for(@tweeet,remote: true,class:"create_tweeet") do |f| %>
+<%= simple_form_for(@tweeet,remote: true,id:"create_tweeets") do |f| %>
 <%=f.error_notification%>
 <div class="field">
 <div class="control">
-<%= f.input :tweeet,label:"Tweet about it",required: true, local: false ,input_html:{class:"textarea"},wrapper: false,lable_html:{class:"label"},placeholder:"Compose a new Tweet...",autofocus:true%>
+
+<%= f.input :tweeet,label:"Tweet about it",minlength:1,required: true,type: 'text', local: false ,input_html:{class:"textarea"},wrapper: false,lable_html:{class:"label"},placeholder:"Compose a new Tweet...",autofocus:true%>
 </div>
 </div>
-<%= f.button :submit , class: "create_tweeet button is-info"%>
+
+<%= f.button :submit , class: "create_tweeet button is-info" ,disable:true%>
+
 <%end%>
+<script>
+  $("#create_tweeets").validate();
+</script>

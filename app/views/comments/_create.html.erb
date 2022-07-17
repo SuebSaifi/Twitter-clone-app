@@ -1,7 +1,7 @@
 <%Comment.all.each do |comment|%>
     <%if comment.tweeet_id==@tweeet.id%>
         <hr>
-        <div class="comment d-flex justify-content-between" id="comment_<%=comment.id%>" >    
+        <div class="comment d-flex justify-content-between"  >    
             <div >
                 <%if @tweeet.id==comment.tweeet_id%>
                 
